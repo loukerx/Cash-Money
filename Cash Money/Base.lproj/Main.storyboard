@@ -32,6 +32,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$6,344.63" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
                                         <rect key="frame" x="50" y="81" width="500" height="54"/>
                                         <animations/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -39,12 +40,12 @@
                                         <rect key="frame" x="50" y="17" width="500" height="54"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="pSn-ko-qPy" secondAttribute="trailing" constant="50" id="CZa-Ro-TXv"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="centerY" secondItem="tX7-0d-06C" secondAttribute="centerY" multiplier="1.2" id="Op7-Z9-WJm"/>
@@ -84,7 +85,7 @@
                                     </imageView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="5tq-AY-RlS"/>
                                     <constraint firstItem="FlW-gF-dXM" firstAttribute="leading" secondItem="qvy-cc-Y6P" secondAttribute="leading" id="CL3-8f-VBx"/>
@@ -100,12 +101,12 @@
                                 <rect key="frame" x="0.0" y="390" width="600" height="120"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1085391473" green="0.86679292929999996" blue="0.25508166989999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qvy-cc-Y6P" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7We-pc-QT0"/>
                             <constraint firstItem="SJl-VH-GyO" firstAttribute="top" secondItem="qvy-cc-Y6P" secondAttribute="bottom" id="EOs-L3-BMM"/>
