@@ -7,30 +7,30 @@
 //
 
 import UIKit
+import Alamofire
 
-class ViewController: UIViewController, UIScrollViewDelegate {
+class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate {
 
     //MARK: Outlets
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var upView: UIView!
     @IBOutlet weak var AUDLabel: UILabel!
-    
     @IBOutlet weak var AUDTextField: UITextField!
-    
     @IBOutlet weak var dashBorderView: UIView!
-    
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    
     @IBOutlet weak var amountDisplayLabel: UILabel!
     
     //variable
     var appDelegate = AppDelegate()
+    
     let currencyArray = ["CAD","EUR","GBP","JPY","USD"]
     let widthRatio:CGFloat = 0.4
+    let audTextFieldTag = 123
     
     
+    var currencyRateDictionary = [String: Float]()
     
+
     
     //MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -38,11 +38,21 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
+        
         self.settingView()
         self.prepareScrollView()
+        self.prepareData()
         
+        self.AUDTextField.delegate = self
         
-        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        self.view.addGestureRecognizer(tap)
+    }
+    
+
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        self.view.endEditing(true)
     }
 
     private func settingView(){
@@ -74,6 +84,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
         
     }
+    
+
     
     private func prepareScrollView(){
         
@@ -120,11 +132,58 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     
     
+    //MARK: - Prepare Data
+    private func prepareData(){
+        
+        
+        let URL = NSURL(string: "http://api.fixer.io/latest")!
+        let parameters = [
+            "base": "AUD",
+            "symbols": "CAD,EUR,GBP,JPY,USD"
+        ]
+        
+        Alamofire.request(.GET, URL, parameters: parameters).responseJSON { response in
+            if let JSON = response.result.value {
+                
+                print("JSON: \(JSON)")
+                
+                self.currencyRateDictionary = JSON["rates"] as! Dictionary<String,Float>
+                
+                
+            }
+        }
+    }
     
     
     
+    //MARK: - TextField Delegate
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField.tag == audTextFieldTag && textField.text?.characters.count>0{
+            let audAmount = (textField.text! as NSString).substringFromIndex(1)
+            
+            //add "$" before the money
+            self.AUDTextField.text = audAmount
+            
+        }
+    }
     
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        
+        if textField.tag == audTextFieldTag && textField.text!.characters.count>0{
+            let audAmount:Float = (self.AUDTextField.text! as NSString).floatValue
+            
+            //add "$" before the money
+            self.AUDTextField.text = "$\(audAmount)"
+            
+            //calculate rate
+            let currencyName = "USD"
+            let rate:Float = self.currencyRateDictionary[currencyName]!
+            let displayAmount = audAmount * rate
+            self.amountDisplayLabel.text = "\(displayAmount)"
+        }
+    }
     
     
 
