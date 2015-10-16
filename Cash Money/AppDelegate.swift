@@ -8,14 +8,27 @@
 
 import UIKit
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var appHelper = AppHelper()
+    
+    //color
+    var appBackgroundColor:UIColor?
+    var scrollViewBackgrundColor:UIColor?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
+        //color
+        appBackgroundColor = appHelper.colorWithHexString("40C866")//40C866
+        scrollViewBackgrundColor = appHelper.colorWithHexString("3FB760")
+        
+        
+        
         return true
     }
 

@@ -29,13 +29,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX7-0d-06C" userLabel="Up View">
                                 <rect key="frame" x="0.0" y="90" width="600" height="180"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$6,344.63" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
-                                        <rect key="frame" x="50" y="81" width="500" height="54"/>
-                                        <animations/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSn-ko-qPy">
                                         <rect key="frame" x="50" y="17" width="500" height="54"/>
                                         <animations/>
@@ -43,6 +36,21 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55T-HH-03h" userLabel="Dash BorderView">
+                                        <rect key="frame" x="30" y="135" width="540" height="1"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="M7G-dO-lLP"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$6,344.63" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
+                                        <rect key="frame" x="50" y="81" width="500" height="54"/>
+                                        <animations/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -50,19 +58,23 @@
                                     <constraint firstAttribute="trailing" secondItem="pSn-ko-qPy" secondAttribute="trailing" constant="50" id="CZa-Ro-TXv"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="centerY" secondItem="tX7-0d-06C" secondAttribute="centerY" multiplier="1.2" id="Op7-Z9-WJm"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="height" secondItem="tX7-0d-06C" secondAttribute="height" multiplier="0.3" id="aVs-kA-yzM"/>
+                                    <constraint firstItem="55T-HH-03h" firstAttribute="top" secondItem="kVD-L4-GOW" secondAttribute="bottom" id="fy5-jM-I1w"/>
+                                    <constraint firstAttribute="trailing" secondItem="55T-HH-03h" secondAttribute="trailing" constant="30" id="kas-tp-1dP"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="leading" secondItem="tX7-0d-06C" secondAttribute="leading" constant="50" id="mGr-5N-7HX"/>
                                     <constraint firstItem="pSn-ko-qPy" firstAttribute="height" secondItem="tX7-0d-06C" secondAttribute="height" multiplier="0.3" id="nKR-Gc-RIq"/>
                                     <constraint firstItem="pSn-ko-qPy" firstAttribute="leading" secondItem="tX7-0d-06C" secondAttribute="leading" constant="50" id="pYP-8e-59D"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="top" secondItem="pSn-ko-qPy" secondAttribute="bottom" constant="10" id="v3L-fa-zxC"/>
+                                    <constraint firstItem="55T-HH-03h" firstAttribute="leading" secondItem="tX7-0d-06C" secondAttribute="leading" constant="30" id="xNc-o6-FvJ"/>
                                     <constraint firstAttribute="trailing" secondItem="kVD-L4-GOW" secondAttribute="trailing" constant="50" id="xty-DF-SLp"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvy-cc-Y6P" userLabel="Middle View">
                                 <rect key="frame" x="0.0" y="270" width="600" height="120"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-gF-dXM">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-gF-dXM">
                                         <rect key="frame" x="0.0" y="10" width="600" height="100"/>
                                         <animations/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="m78-yo-H30"/>
                                         </constraints>
@@ -127,6 +139,7 @@
                         <outlet property="AUDLabel" destination="pSn-ko-qPy" id="r9K-ds-4ZA"/>
                         <outlet property="AUDTextField" destination="kVD-L4-GOW" id="0w7-wr-iVV"/>
                         <outlet property="amountDisplayLabel" destination="SJl-VH-GyO" id="4OD-y4-Fiq"/>
+                        <outlet property="dashBorderView" destination="55T-HH-03h" id="9vt-Gc-fKE"/>
                         <outlet property="mainView" destination="8bC-Xf-vdC" id="xbJ-jx-W3P"/>
                         <outlet property="scrollView" destination="FlW-gF-dXM" id="jPM-fu-mU3"/>
                         <outlet property="upView" destination="tX7-0d-06C" id="TUv-o8-S6H"/>
