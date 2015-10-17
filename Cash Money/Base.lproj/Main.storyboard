@@ -32,23 +32,23 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSn-ko-qPy">
                                         <rect key="frame" x="50" y="17" width="500" height="54"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="56"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55T-HH-03h" userLabel="Dash BorderView">
-                                        <rect key="frame" x="30" y="135" width="540" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55T-HH-03h" userLabel="Dash BorderView" customClass="DashLine" customModule="Cash_Money" customModuleProvider="target">
+                                        <rect key="frame" x="50" y="135" width="500" height="3"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="M7G-dO-lLP"/>
+                                            <constraint firstAttribute="height" constant="3" id="M7G-dO-lLP"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="123" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="A$6,344.63" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="123" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
                                         <rect key="frame" x="50" y="81" width="500" height="54"/>
                                         <animations/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="56"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                 </subviews>
@@ -59,22 +59,22 @@
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="centerY" secondItem="tX7-0d-06C" secondAttribute="centerY" multiplier="1.2" id="Op7-Z9-WJm"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="height" secondItem="tX7-0d-06C" secondAttribute="height" multiplier="0.3" id="aVs-kA-yzM"/>
                                     <constraint firstItem="55T-HH-03h" firstAttribute="top" secondItem="kVD-L4-GOW" secondAttribute="bottom" id="fy5-jM-I1w"/>
-                                    <constraint firstAttribute="trailing" secondItem="55T-HH-03h" secondAttribute="trailing" constant="30" id="kas-tp-1dP"/>
+                                    <constraint firstAttribute="trailing" secondItem="55T-HH-03h" secondAttribute="trailing" constant="50" id="kas-tp-1dP"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="leading" secondItem="tX7-0d-06C" secondAttribute="leading" constant="50" id="mGr-5N-7HX"/>
                                     <constraint firstItem="pSn-ko-qPy" firstAttribute="height" secondItem="tX7-0d-06C" secondAttribute="height" multiplier="0.3" id="nKR-Gc-RIq"/>
                                     <constraint firstItem="pSn-ko-qPy" firstAttribute="leading" secondItem="tX7-0d-06C" secondAttribute="leading" constant="50" id="pYP-8e-59D"/>
                                     <constraint firstItem="kVD-L4-GOW" firstAttribute="top" secondItem="pSn-ko-qPy" secondAttribute="bottom" constant="10" id="v3L-fa-zxC"/>
-                                    <constraint firstItem="55T-HH-03h" firstAttribute="leading" secondItem="tX7-0d-06C" secondAttribute="leading" constant="30" id="xNc-o6-FvJ"/>
+                                    <constraint firstItem="55T-HH-03h" firstAttribute="leading" secondItem="tX7-0d-06C" secondAttribute="leading" constant="50" id="xNc-o6-FvJ"/>
                                     <constraint firstAttribute="trailing" secondItem="kVD-L4-GOW" secondAttribute="trailing" constant="50" id="xty-DF-SLp"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvy-cc-Y6P" userLabel="Middle View">
                                 <rect key="frame" x="0.0" y="270" width="600" height="120"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-gF-dXM">
-                                        <rect key="frame" x="50" y="10" width="500" height="100"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-gF-dXM">
+                                        <rect key="frame" x="0.0" y="10" width="600" height="100"/>
                                         <animations/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="m78-yo-H30"/>
                                         </constraints>
@@ -99,20 +99,20 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="FlW-gF-dXM" firstAttribute="leading" secondItem="qvy-cc-Y6P" secondAttribute="leading" id="2md-Uv-jmh"/>
                                     <constraint firstAttribute="height" constant="120" id="5tq-AY-RlS"/>
-                                    <constraint firstItem="FlW-gF-dXM" firstAttribute="leading" secondItem="qvy-cc-Y6P" secondAttribute="leading" constant="50" id="CL3-8f-VBx"/>
                                     <constraint firstItem="tes-5d-lbl" firstAttribute="centerX" secondItem="qvy-cc-Y6P" secondAttribute="centerX" id="QZB-uc-BFS"/>
-                                    <constraint firstItem="FlW-gF-dXM" firstAttribute="centerY" secondItem="qvy-cc-Y6P" secondAttribute="centerY" id="Xgf-zu-0To"/>
                                     <constraint firstAttribute="bottom" secondItem="bvG-mN-LrJ" secondAttribute="bottom" constant="4" id="buY-O0-avY"/>
-                                    <constraint firstAttribute="trailing" secondItem="FlW-gF-dXM" secondAttribute="trailing" constant="50" id="iAx-i4-tPF"/>
                                     <constraint firstItem="tes-5d-lbl" firstAttribute="top" secondItem="qvy-cc-Y6P" secondAttribute="top" constant="4" id="kFg-ck-z8K"/>
                                     <constraint firstItem="bvG-mN-LrJ" firstAttribute="centerX" secondItem="qvy-cc-Y6P" secondAttribute="centerX" id="pMg-da-gbr"/>
+                                    <constraint firstAttribute="trailing" secondItem="FlW-gF-dXM" secondAttribute="trailing" id="pTi-B3-xog"/>
+                                    <constraint firstItem="FlW-gF-dXM" firstAttribute="centerY" secondItem="qvy-cc-Y6P" secondAttribute="centerY" id="vWD-yJ-40i"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$2,954.69" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJl-VH-GyO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJl-VH-GyO">
                                 <rect key="frame" x="0.0" y="390" width="600" height="120"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="56"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
