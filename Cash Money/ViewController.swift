@@ -26,6 +26,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     let currencyArray = ["CAD","EUR","GBP","JPY","USD"]
     let widthRatio:CGFloat = 0.5
     let audTextFieldTag = 123
+    let unselectedLabelAlpha:CGFloat = 0.2
     
     var selectedCurrencyTag = 0
     var currencyRateDictionary = [String: Float]()
@@ -45,7 +46,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
         //判断金额长度
         //修改字体  The font is Helvetica (56pt max, scaling down dynamically as required eg. for really big numbers).
-        //scrollview 获取内容
+
         
         self.AUDTextField.delegate = self
         
@@ -63,9 +64,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     private func prepareScrollView(){
         
         //修改paging size，可视size不一样
-        
-        //scroll选中uilabel，选中label 调整alpha值，修改数字
-        //
         
         
         let width = self.scrollView.frame.size.width// * widthRatio
@@ -89,11 +87,14 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             //            currencyLabel.backgroundColor = UIColor.clearColor()
             currencyLabel.textAlignment = NSTextAlignment.Center
             currencyLabel.font = UIFont(name: "Helvetica", size: 50)
-            currencyLabel.backgroundColor = UIColor.blackColor()
-            
+//            currencyLabel.backgroundColor = UIColor.blackColor()
+            if count != 0{
+                currencyLabel.alpha = self.unselectedLabelAlpha
+            }
             currencyLabel.layer.borderColor = UIColor.whiteColor().CGColor
             currencyLabel.layer.borderWidth = 1.0
-            currencyLabel.alpha = 0.2
+
+
             //            currencyLabel.layer.cornerRadius = 4.0
             currencyLabel.clipsToBounds = true
             
@@ -106,8 +107,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             
         }
         
-        
-        
+  
         
     }
     
@@ -126,12 +126,33 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
         if let audAmountStr = formatter.numberFromString(self.AUDTextField.text!){
             let audAmount:Float = ("\(audAmountStr)" as NSString).floatValue
-            print(audAmountStr)
+//            print(audAmountStr)
             self.displayAmountBySelectedCurrency(audAmount)
         }
         
     }
 
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        print("--------------------------------------")
+        print(scrollView.subviews.count)
+        print(scrollView.subviews)
+        print("--------------------------------------")
+        print(scrollView.subviews[0]) //[[scrollView subviews] objectAtIndex:0]
+        
+        
+        for view in scrollView.subviews{
+            if let currencyLabel = view as? UILabel {
+                if currencyLabel.text == self.currencyArray[self.selectedCurrencyTag] {
+                    
+                    currencyLabel.alpha = 1
+                }else{
+                    currencyLabel.alpha = 0.3
+                }
+            }
+        }
+    }
+    
     private func settingView(){
         
         self.mainView.backgroundColor = appDelegate.appBackgroundColor
