@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate, NSURLConnectionDataDelegate {
 
     //MARK: Outlets
     @IBOutlet var mainView: UIView!
@@ -42,9 +42,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
         self.settingView()
 
-        self.prepareData()//修改普通读取jason的方法
-        
+//        self.prepareData()//修改普通读取jason的方法
+        self.propareCurrencyArray()
         //判断金额长度
+        //draw dash
         //修改字体  The font is Helvetica (56pt max, scaling down dynamically as required eg. for really big numbers).
 
         
@@ -126,7 +127,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
         if let audAmountStr = formatter.numberFromString(self.AUDTextField.text!){
             let audAmount:Float = ("\(audAmountStr)" as NSString).floatValue
-//            print(audAmountStr)
             self.displayAmountBySelectedCurrency(audAmount)
         }
         
@@ -134,13 +134,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
 
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        print("--------------------------------------")
-        print(scrollView.subviews.count)
-        print(scrollView.subviews)
-        print("--------------------------------------")
-        print(scrollView.subviews[0]) //[[scrollView subviews] objectAtIndex:0]
-        
-        
+        //Update selected UILabel.alpha
         for view in scrollView.subviews{
             if let currencyLabel = view as? UILabel {
                 if currencyLabel.text == self.currencyArray[self.selectedCurrencyTag] {
@@ -196,16 +190,17 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     
     
     //MARK: - Prepare Data
+    /*
     private func prepareData(){
         
         
-        let URL = NSURL(string: "http://api.fixer.io/latest")!
+        let URL = NSURL(string: "http://api.fixer.io/latest")
         let parameters = [
             "base": "AUD",
             "symbols": "CAD,EUR,GBP,JPY,USD"
         ]
         
-        Alamofire.request(.GET, URL, parameters: parameters).responseJSON { response in
+        Alamofire.request(.GET, URL!, parameters: parameters).responseJSON { response in
             if let JSON = response.result.value {
                 
                 print("JSON: \(JSON)")
@@ -215,6 +210,46 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
                 
             }
         }
+    }*/
+    
+    private func propareCurrencyArray(){
+        
+        let url = NSURL(string: "http://api.fixer.io/latest?base=AUD&symbols=CAD,EUR,GBP,JPY,USD")
+        let request = NSURLRequest(URL: url!)
+//        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
+//            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+//        }
+        _ = NSURLConnection(request: request, delegate:self, startImmediately: true)
+
+    }
+    
+    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse)
+    { //It says the response started coming
+        NSLog("didReceiveResponse")
+    }
+    
+    func connection(connection: NSURLConnection, didReceiveData _data: NSData)
+    { //This will be called again and again unil you get the full response
+       NSLog("didReceiveData")
+
+        do {
+           let jsonResults = try NSJSONSerialization.JSONObjectWithData(_data, options: [])
+            // success ...
+            print(jsonResults)
+            self.currencyRateDictionary = jsonResults["rates"] as! Dictionary<String,Float>
+            
+        } catch let error as NSError {
+            // failure
+            print("Fetch failed: \(error.localizedDescription)")
+        }
+
+    }
+    
+    func connectionDidFinishLoading(connection: NSURLConnection)
+    {
+        // This will be called when the data loading is finished i.e. there is no data left to be received and now you can process the data.
+        NSLog("connectionDidFinishLoading")
+
     }
     
     
