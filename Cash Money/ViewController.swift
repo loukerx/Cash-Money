@@ -24,7 +24,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     var appDelegate = AppDelegate()
     
     let currencyArray = ["CAD","EUR","GBP","JPY","USD"]
-    let widthRatio:CGFloat = 0.4
+    let widthRatio:CGFloat = 0.5
     let audTextFieldTag = 123
     
     
@@ -41,12 +41,15 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
         self.settingView()
         self.prepareScrollView()
-        self.prepareData()
+        self.prepareData()//修改普通读取jason的方法
+        
+        //判断金额长度
+        //修改字体  The font is Helvetica (56pt max, scaling down dynamically as required eg. for really big numbers).
+        //scrollview 获取内容
         
         self.AUDTextField.delegate = self
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
-        self.view.addGestureRecognizer(tap)
+
     }
     
 
@@ -81,7 +84,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
 */
         
-
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        self.view.addGestureRecognizer(tap)
         
     }
     
@@ -89,8 +93,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     
     private func prepareScrollView(){
         
-        let width = self.view.bounds.width * widthRatio
-        let height = self.view.bounds.height
+        let width = self.scrollView.bounds.width * widthRatio
+        let height = self.scrollView.bounds.height
         let currencyCount = self.currencyArray.count
         let contentSizeWidth = width * CGFloat(currencyCount)
         self.scrollView.contentSize = CGSizeMake(contentSizeWidth, 0)
@@ -108,7 +112,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             currencyLabel.textColor = UIColor.whiteColor()
 //            currencyLabel.backgroundColor = UIColor.clearColor()
             currencyLabel.textAlignment = NSTextAlignment.Center
-            currencyLabel.font = UIFont(name: "System", size: 30)
+            currencyLabel.font = UIFont(name: "Helvetica", size: 50)
             
                 
             
@@ -163,6 +167,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             let audAmount = (textField.text! as NSString).substringFromIndex(1)
             
             //add "$" before the money
+            
+            
             self.AUDTextField.text = audAmount
             
         }
@@ -175,13 +181,51 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             let audAmount:Float = (self.AUDTextField.text! as NSString).floatValue
             
             //add "$" before the money
-            self.AUDTextField.text = "$\(audAmount)"
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+            self.AUDTextField.text = "$\(formatter.stringFromNumber(audAmount)!)"
+
             
             //calculate rate
-            let currencyName = "USD"
-            let rate:Float = self.currencyRateDictionary[currencyName]!
+            let currencyCode = "GBP" //CAD, EUR, GBP, JPY, USD.
+            let rate:Float = self.currencyRateDictionary[currencyCode]!
             let displayAmount = audAmount * rate
-            self.amountDisplayLabel.text = "\(displayAmount)"
+            
+            
+            formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+            formatter.currencyCode = currencyCode
+            //display converted amount
+            self.amountDisplayLabel.text = "\(formatter.stringFromNumber(displayAmount)!)"
+            
+            
+            
+            
+            //            let locale = NSLocale(localeIdentifier: currencyCode)
+            //            if let currencySymbol = locale.displayNameForKey(NSLocaleCurrencySymbol, value: currencyCode){
+            //
+            //                self.amountDisplayLabel.text = currencySymbol + "\(displayAmount)"
+            //            }
+            
+            
+            //method 2
+            //            let formatter = NSNumberFormatter()
+//            print("\(currencyCode) \(formatter.stringFromNumber(54321234.5678)!)")
+//
+//       
+//            for identifier in self.currencyArray {//["de_DE","en_UK", "ja_JP","en_US"]  {////                formatter.locale = NSLocale(localeIdentifier: identifier)
+//                
+//                formatter.currencyCode = identifier
+//            
+//            self.amountDisplayLabel.text = "\(identifier) \(formatter.stringFromNumber(154321234.5678)!)"
+//            
+//                print("\(identifier) \(formatter.stringFromNumber(154321234.5678)!)")
+//            }
+//            
+         
+            
+            
+        }else{
+            self.amountDisplayLabel.text = ""
         }
     }
     
