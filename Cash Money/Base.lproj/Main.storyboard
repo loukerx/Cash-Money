@@ -44,7 +44,7 @@
                                             <constraint firstAttribute="height" constant="1" id="M7G-dO-lLP"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="123" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$6,344.63" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="123" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="A$6,344.63" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
                                         <rect key="frame" x="50" y="81" width="500" height="54"/>
                                         <animations/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,7 +72,7 @@
                                 <rect key="frame" x="0.0" y="270" width="600" height="120"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-gF-dXM">
-                                        <rect key="frame" x="0.0" y="10" width="600" height="100"/>
+                                        <rect key="frame" x="50" y="10" width="500" height="100"/>
                                         <animations/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <constraints>
@@ -100,11 +100,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="5tq-AY-RlS"/>
-                                    <constraint firstItem="FlW-gF-dXM" firstAttribute="leading" secondItem="qvy-cc-Y6P" secondAttribute="leading" id="CL3-8f-VBx"/>
+                                    <constraint firstItem="FlW-gF-dXM" firstAttribute="leading" secondItem="qvy-cc-Y6P" secondAttribute="leading" constant="50" id="CL3-8f-VBx"/>
                                     <constraint firstItem="tes-5d-lbl" firstAttribute="centerX" secondItem="qvy-cc-Y6P" secondAttribute="centerX" id="QZB-uc-BFS"/>
                                     <constraint firstItem="FlW-gF-dXM" firstAttribute="centerY" secondItem="qvy-cc-Y6P" secondAttribute="centerY" id="Xgf-zu-0To"/>
                                     <constraint firstAttribute="bottom" secondItem="bvG-mN-LrJ" secondAttribute="bottom" constant="4" id="buY-O0-avY"/>
-                                    <constraint firstAttribute="trailing" secondItem="FlW-gF-dXM" secondAttribute="trailing" id="iAx-i4-tPF"/>
+                                    <constraint firstAttribute="trailing" secondItem="FlW-gF-dXM" secondAttribute="trailing" constant="50" id="iAx-i4-tPF"/>
                                     <constraint firstItem="tes-5d-lbl" firstAttribute="top" secondItem="qvy-cc-Y6P" secondAttribute="top" constant="4" id="kFg-ck-z8K"/>
                                     <constraint firstItem="bvG-mN-LrJ" firstAttribute="centerX" secondItem="qvy-cc-Y6P" secondAttribute="centerX" id="pMg-da-gbr"/>
                                 </constraints>

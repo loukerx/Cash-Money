@@ -27,7 +27,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     let widthRatio:CGFloat = 0.5
     let audTextFieldTag = 123
     
-    
+    var selectedCurrencyTag = 0
     var currencyRateDictionary = [String: Float]()
     
 
@@ -40,7 +40,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
 
         
         self.settingView()
-        self.prepareScrollView()
+
         self.prepareData()//修改普通读取jason的方法
         
         //判断金额长度
@@ -51,11 +51,85 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
 
     }
-    
 
-    func DismissKeyboard(){
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        self.view.endEditing(true)
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        //Prepare ScrollView
+        self.prepareScrollView()
+    }
+    
+    
+    private func prepareScrollView(){
+        
+        //修改paging size，可视size不一样
+        
+        //scroll选中uilabel，选中label 调整alpha值，修改数字
+        //
+        
+        
+        let width = self.scrollView.frame.size.width// * widthRatio
+        let height = self.scrollView.frame.size.height
+        let currencyCount = self.currencyArray.count
+        let contentSizeWidth = width * CGFloat(currencyCount)
+        self.scrollView.contentSize = CGSizeMake(contentSizeWidth, 0)
+        self.scrollView.delegate = self
+        self.scrollView.backgroundColor = UIColor.clearColor()
+        
+        var count:Int = 0
+        
+        for name in self.currencyArray {
+            
+            
+            let nameStr = name as String
+            
+            let currencyLabel = UILabel(frame: CGRectMake(width * CGFloat(count), 0, width, height))
+            currencyLabel.text = nameStr
+            currencyLabel.textColor = UIColor.whiteColor()
+            //            currencyLabel.backgroundColor = UIColor.clearColor()
+            currencyLabel.textAlignment = NSTextAlignment.Center
+            currencyLabel.font = UIFont(name: "Helvetica", size: 50)
+            currencyLabel.backgroundColor = UIColor.blackColor()
+            
+            currencyLabel.layer.borderColor = UIColor.whiteColor().CGColor
+            currencyLabel.layer.borderWidth = 1.0
+            currencyLabel.alpha = 0.2
+            //            currencyLabel.layer.cornerRadius = 4.0
+            currencyLabel.clipsToBounds = true
+            
+            self.scrollView.addSubview(currencyLabel)
+            
+            
+            
+            count++
+            
+            
+        }
+        
+        
+        
+        
+    }
+    
+    
+    //MARK: ScrollView Delegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        let page = Int((self.scrollView.contentOffset.x * 2.0 + pageWidth) / CGFloat(pageWidth * 2.0))
+        
+        self.selectedCurrencyTag = page
+        
+        //update new Amount by currency
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.currencyCode = "AUD"
+        
+        if let audAmountStr = formatter.numberFromString(self.AUDTextField.text!){
+            let audAmount:Float = ("\(audAmountStr)" as NSString).floatValue
+            print(audAmountStr)
+            self.displayAmountBySelectedCurrency(audAmount)
+        }
+        
     }
 
     private func settingView(){
@@ -89,49 +163,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
     }
     
-
     
-    private func prepareScrollView(){
-        
-        let width = self.scrollView.bounds.width * widthRatio
-        let height = self.scrollView.bounds.height
-        let currencyCount = self.currencyArray.count
-        let contentSizeWidth = width * CGFloat(currencyCount)
-        self.scrollView.contentSize = CGSizeMake(contentSizeWidth, 0)
-        self.scrollView.delegate = self
-        
-        var count:Int = 0
-        
-        for name in self.currencyArray {
-            
-            
-            let nameStr = name as String
-            
-            let currencyLabel = UILabel(frame: CGRectMake(width * CGFloat(count), 0, width, height))
-            currencyLabel.text = nameStr
-            currencyLabel.textColor = UIColor.whiteColor()
-//            currencyLabel.backgroundColor = UIColor.clearColor()
-            currencyLabel.textAlignment = NSTextAlignment.Center
-            currencyLabel.font = UIFont(name: "Helvetica", size: 50)
-            
-                
-            
-            self.scrollView.addSubview(currencyLabel)
-            
-            
-   
-            count++
-            
-            
-        }
-        
-        
-        
-        
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        self.view.endEditing(true)
     }
-    
 
-    
+  
     
     
     
@@ -164,12 +202,22 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField.tag == audTextFieldTag && textField.text?.characters.count>0{
-            let audAmount = (textField.text! as NSString).substringFromIndex(1)
             
             //add "$" before the money
             
+//            let audAmountStr = (textField.text! as NSString).substringFromIndex(1)
+// self.AUDTextField.text = "\(audAmountStr!)"
+       
+    
+            //display number
             
-            self.AUDTextField.text = audAmount
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+            formatter.currencyCode = "AUD"
+
+            let audAmountStr = formatter.numberFromString(textField.text!)//"A$1231231")
+            
+            self.AUDTextField.text = "\(audAmountStr!)"
             
         }
     }
@@ -181,47 +229,19 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             let audAmount:Float = (self.AUDTextField.text! as NSString).floatValue
             
             //add "$" before the money
-            let formatter = NSNumberFormatter()
-            formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-            self.AUDTextField.text = "$\(formatter.stringFromNumber(audAmount)!)"
-
-            
-            //calculate rate
-            let currencyCode = "GBP" //CAD, EUR, GBP, JPY, USD.
-            let rate:Float = self.currencyRateDictionary[currencyCode]!
-            let displayAmount = audAmount * rate
-            
-            
-            formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-            formatter.currencyCode = currencyCode
-            //display converted amount
-            self.amountDisplayLabel.text = "\(formatter.stringFromNumber(displayAmount)!)"
-            
-            
-            
-            
-            //            let locale = NSLocale(localeIdentifier: currencyCode)
-            //            if let currencySymbol = locale.displayNameForKey(NSLocaleCurrencySymbol, value: currencyCode){
-            //
-            //                self.amountDisplayLabel.text = currencySymbol + "\(displayAmount)"
-            //            }
-            
-            
-            //method 2
-            //            let formatter = NSNumberFormatter()
-//            print("\(currencyCode) \(formatter.stringFromNumber(54321234.5678)!)")
+//            let formatter = NSNumberFormatter()
+//            formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+//            self.AUDTextField.text = "$\(formatter.stringFromNumber(audAmount)!)"
 //
-//       
-//            for identifier in self.currencyArray {//["de_DE","en_UK", "ja_JP","en_US"]  {////                formatter.locale = NSLocale(localeIdentifier: identifier)
-//                
-//                formatter.currencyCode = identifier
-//            
-//            self.amountDisplayLabel.text = "\(identifier) \(formatter.stringFromNumber(154321234.5678)!)"
-//            
-//                print("\(identifier) \(formatter.stringFromNumber(154321234.5678)!)")
-//            }
-//            
-         
+
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+            formatter.currencyCode = "AUD"
+            //display converted amount
+            self.AUDTextField.text = "\(formatter.stringFromNumber(audAmount)!)"
+
+            self.displayAmountBySelectedCurrency(audAmount)
+
             
             
         }else{
@@ -229,7 +249,19 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         }
     }
     
-    
+    private func displayAmountBySelectedCurrency(audAmount:Float){
+        //calculate Amount
+        let currencyCode = self.currencyArray[self.selectedCurrencyTag] //CAD, EUR, GBP, JPY, USD.
+        let rate:Float = self.currencyRateDictionary[currencyCode]!
+        let displayAmount = audAmount * rate
+        
+        
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.currencyCode = currencyCode
+        //display converted amount
+        self.amountDisplayLabel.text = "\(formatter.stringFromNumber(displayAmount)!)"
+    }
 
 }
 
