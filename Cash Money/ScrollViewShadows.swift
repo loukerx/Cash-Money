@@ -18,7 +18,6 @@ class ScrollViewShadows: UIScrollView {
         let context = UIGraphicsGetCurrentContext()
         let myShadowOffset = CGSizeMake (0,1)
         CGContextSaveGState(context)
-//        CGContextSetShadow (context, myShadowOffset, 5)
         
         CGContextSetShadowWithColor(context, myShadowOffset, 5, UIColor.blackColor().CGColor)
         CGContextSetLineWidth(context, 0.5)

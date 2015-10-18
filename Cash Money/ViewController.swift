@@ -83,7 +83,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     
     private func prepareScrollView(){
         
-        //修改paging size，可视size不一样
         
         var labelNameArray = self.currencyArray
         labelNameArray.append("")
@@ -145,44 +144,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     /*
     //MARK: ScrollView Delegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.tag == pagingScrollViewTag {
-          
-            
-            let pageWidth = pagingScrollView.frame.size.width
-            let page = Int((self.scrollView.contentOffset.x * 2.0 + pageWidth) / CGFloat(pageWidth * 2.0))
-//            print(self.scrollView.contentOffset.x)
-            self.selectedCurrencyTag = page
-//            let inset = self.view.bounds.size.width * 0.5;
-//            let scale = (self.scrollView.bounds.size.width-2*inset)/scrollView.bounds.size.width;
-//            self.scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x*scale - inset, 0);
-//        
-//          
-            let width = self.scrollView.bounds.size.width * widthRatio
-            
-            
-            
-            let distance = CGFloat(page) + 0.5
-//            self.scrollView.setContentOffset(CGPointMake(width + number, 0), animated: true)
-        }
-        if scrollView == self.scrollView {
-            
-            print("self.scrollview")
-            /*
-            let pageWidth = scrollView.frame.size.width * widthRatio
-            let page = Int((self.scrollView.contentOffset.x * 2.0 * widthRatio + pageWidth) / CGFloat(pageWidth * 2.0))
-            print(self.scrollView.contentOffset.x)
-            self.selectedCurrencyTag = page
-            
-            //update new Amount by currency
-            let formatter = NSNumberFormatter()
-            formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-            formatter.currencyCode = "AUD"
-            
-            if let audAmountStr = formatter.numberFromString(self.AUDTextField.text!){
-            let audAmount:Float = ("\(audAmountStr)" as NSString).floatValue
-            self.displayAmountBySelectedCurrency(audAmount)
-            }*/
-        }
         
     }
     */
