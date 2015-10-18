@@ -42,12 +42,32 @@ class Cash_MoneyUITests: XCTestCase {
         let inputTextField = app.textFields["AUDTextField"]
         inputTextField.tap()
         inputTextField.typeText(AUDTextFieldInput)
+        app.otherElements.containingType(.Image, identifier:"Logo").element.tap()
+
+        let cadStaticText = app.staticTexts["CAD"]
+        cadStaticText.swipeLeft()
         
         
         let displayLabel = app.staticTexts["AmountDisplayLabel"]
         
-        XCTAssertEqual(displayLabel.label, "12345", "just for testing")
+        //convert amount
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.currencyCode = "AUD"
         
+        let audAmountStr = formatter.numberFromString(displayLabel.label)
+        
+        var checkDigital = false
+        if let _:Float = ("\(audAmountStr)" as NSString).floatValue {
+            checkDigital = true
+        }else{
+            checkDigital = false
+        }
+        
+        XCTAssertEqual(checkDigital, true, "successful testing")
+//        XCTAssertEqual(checkDigital! false, "testing fail")
         
     }
+    
+    
 }
