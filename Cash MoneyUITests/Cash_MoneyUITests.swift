@@ -33,4 +33,21 @@ class Cash_MoneyUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func testAmountDisplayLabel(){
+    
+        let AUDTextFieldInput = "12345"
+        
+        let app = XCUIApplication()
+    
+        let inputTextField = app.textFields["AUDTextField"]
+        inputTextField.tap()
+        inputTextField.typeText(AUDTextFieldInput)
+        
+        
+        let displayLabel = app.staticTexts["AmountDisplayLabel"]
+        
+        XCTAssertEqual(displayLabel.label, "12345", "just for testing")
+        
+        
+    }
 }

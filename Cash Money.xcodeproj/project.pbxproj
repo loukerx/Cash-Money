@@ -17,6 +17,7 @@
 		AE7A8F5B1BD0B81100BD114A /* Cash_MoneyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7A8F5A1BD0B81100BD114A /* Cash_MoneyUITests.swift */; };
 		AEE395501BD2799C00796C17 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE3954F1BD2799C00796C17 /* CoreGraphics.framework */; };
 		AEE395531BD27C7200796C17 /* DashLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE395521BD27C7200796C17 /* DashLine.swift */; settings = {ASSET_TAGS = (); }; };
+		AEE6EC171BD375B2006D65D6 /* ScrollViewShadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE6EC161BD375B2006D65D6 /* ScrollViewShadows.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		AE7A8F5C1BD0B81100BD114A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEE3954F1BD2799C00796C17 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		AEE395521BD27C7200796C17 /* DashLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashLine.swift; sourceTree = "<group>"; };
+		AEE6EC161BD375B2006D65D6 /* ScrollViewShadows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewShadows.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				AEE395521BD27C7200796C17 /* DashLine.swift */,
+				AEE6EC161BD375B2006D65D6 /* ScrollViewShadows.swift */,
 			);
 			name = Class;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				AEE395531BD27C7200796C17 /* DashLine.swift in Sources */,
 				AE525FA81BD0C60800714906 /* AppHelper.swift in Sources */,
 				AE7A8F3B1BD0B81100BD114A /* AppDelegate.swift in Sources */,
+				AEE6EC171BD375B2006D65D6 /* ScrollViewShadows.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
