@@ -57,11 +57,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewDidAppear(true)
         
         //Prepare ScrollView
         self.prepareScrollView()
     }
+    
+
     
     //MARK: - View Setting
     private func settingView(){
