@@ -14,18 +14,22 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     //MARK: Outlets
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var upView: UIView!
+    @IBOutlet weak var middleView: UIView!
+    
     @IBOutlet weak var AUDLabel: UILabel!
     @IBOutlet weak var AUDTextField: UITextField!
     @IBOutlet weak var dashBorderView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var amountDisplayLabel: UILabel!
     
-    //variable
+    //variables
     var appDelegate = AppDelegate()
+    var pagingScrollView = UIScrollView()
     
     let currencyArray = ["CAD","EUR","GBP","JPY","USD"]
     let widthRatio:CGFloat = 0.5
     let audTextFieldTag = 123
+    let pagingScrollViewTag = 222
     let unselectedLabelAlpha:CGFloat = 0.2
     
     var selectedCurrencyTag = 0
@@ -39,23 +43,16 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
 
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-        
         self.settingView()
         self.propareCurrencyArray()
         
-        //修改字体  The font is Helvetica (56pt max, scaling down dynamically as required eg. for really big numbers).
-
-        
         self.AUDTextField.delegate = self
         
-
     }
 
     override func viewDidLayoutSubviews() {
         if let pointSize = self.AUDTextField.font?.pointSize{
-            print(pointSize)
             self.amountDisplayLabel.font = UIFont(name: "Helvetica", size: pointSize)
-            
         }
     }
     
@@ -66,6 +63,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         self.prepareScrollView()
     }
     
+    //MARK: - View Setting
     private func settingView(){
         
         self.mainView.backgroundColor = appDelegate.appBackgroundColor
@@ -77,7 +75,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     
     
     func DismissKeyboard(){
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+
         self.view.endEditing(true)
     }
     
@@ -85,19 +83,25 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
         //修改paging size，可视size不一样
         
-        let width = self.scrollView.frame.size.width * 0.5// * widthRatio
+        var labelNameArray = self.currencyArray
+        labelNameArray.append("")
+        labelNameArray.insert("", atIndex: 0)
+        print(labelNameArray)
+        
+        //scrollview with labels
+        let width = self.scrollView.frame.size.width * widthRatio
         let height = self.scrollView.frame.size.height
-        let currencyCount = self.currencyArray.count
+        let currencyCount = labelNameArray.count //self.currencyArray.count
         let contentSizeWidth = width * CGFloat(currencyCount)
         self.scrollView.contentSize = CGSizeMake(contentSizeWidth, 0)
         self.scrollView.delegate = self
         self.scrollView.backgroundColor = appDelegate.scrollViewBackgrundColor
-//        self.scrollView.pagingEnabled = true
-
+        
+        
         
         var count:Int = 0
         
-        for name in self.currencyArray {
+        for name in labelNameArray { //self.currencyArray {
             
             
             let nameStr = name as String
@@ -109,33 +113,106 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             currencyLabel.font = UIFont(name: "Helvetica", size: 56)
             currencyLabel.backgroundColor = UIColor.clearColor()
             
-            if count != 0{
+            if count != 1{
                 currencyLabel.alpha = self.unselectedLabelAlpha
             }
-//            currencyLabel.layer.borderColor = UIColor.whiteColor().CGColor
-//            currencyLabel.layer.borderWidth = 1.0
-//            currencyLabel.clipsToBounds = true
             
             self.scrollView.addSubview(currencyLabel)
-            
-            
-            
+
             count++
-            
             
         }
         
-  
+        //scroll to the first position
+        self.scrollView.setContentOffset(CGPointMake(width * CGFloat(0.5), 0), animated: true)
         
+        //paging scrollview
+        let tmpFrame = self.view.bounds
+        let w:CGFloat = tmpFrame.size.width
+        let h:CGFloat = height
+        self.pagingScrollView = UIScrollView(frame: CGRectMake(0, 0, w, h))
+        self.pagingScrollView.delegate = self
+        self.pagingScrollView.pagingEnabled = true
+        self.pagingScrollView.tag = pagingScrollViewTag
+        self.pagingScrollView.showsHorizontalScrollIndicator = false
+        self.pagingScrollView.contentSize = CGSizeMake(w * CGFloat(self.currencyArray.count), 0)
+        self.pagingScrollView.backgroundColor = UIColor.clearColor()
+        self.middleView.addSubview(self.pagingScrollView)
     }
     
-    
+    /*
     //MARK: ScrollView Delegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let pageWidth = scrollView.frame.size.width * 0.5
-        let page = Int((self.scrollView.contentOffset.x * 2.0 * 0.5 + pageWidth) / CGFloat(pageWidth * 2.0))
+        if scrollView.tag == pagingScrollViewTag {
+          
+            
+            let pageWidth = pagingScrollView.frame.size.width
+            let page = Int((self.scrollView.contentOffset.x * 2.0 + pageWidth) / CGFloat(pageWidth * 2.0))
+//            print(self.scrollView.contentOffset.x)
+            self.selectedCurrencyTag = page
+//            let inset = self.view.bounds.size.width * 0.5;
+//            let scale = (self.scrollView.bounds.size.width-2*inset)/scrollView.bounds.size.width;
+//            self.scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x*scale - inset, 0);
+//        
+//          
+            let width = self.scrollView.bounds.size.width * widthRatio
+            
+            
+            
+            let distance = CGFloat(page) + 0.5
+//            self.scrollView.setContentOffset(CGPointMake(width + number, 0), animated: true)
+        }
+        if scrollView == self.scrollView {
+            
+            print("self.scrollview")
+            /*
+            let pageWidth = scrollView.frame.size.width * widthRatio
+            let page = Int((self.scrollView.contentOffset.x * 2.0 * widthRatio + pageWidth) / CGFloat(pageWidth * 2.0))
+            print(self.scrollView.contentOffset.x)
+            self.selectedCurrencyTag = page
+            
+            //update new Amount by currency
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+            formatter.currencyCode = "AUD"
+            
+            if let audAmountStr = formatter.numberFromString(self.AUDTextField.text!){
+            let audAmount:Float = ("\(audAmountStr)" as NSString).floatValue
+            self.displayAmountBySelectedCurrency(audAmount)
+            }*/
+        }
         
-        self.selectedCurrencyTag = page
+    }
+    */
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        
+        
+        if scrollView.tag == pagingScrollViewTag {
+            
+            let pageWidth = pagingScrollView.frame.size.width
+            let page = Int((self.pagingScrollView.contentOffset.x * 2.0 + pageWidth) / CGFloat(pageWidth * 2.0))
+            //            print(self.scrollView.contentOffset.x)
+            self.selectedCurrencyTag = page
+
+            print(page)
+            let width = self.scrollView.bounds.size.width * widthRatio
+            let number = CGFloat(page) + 0.5
+            self.scrollView.setContentOffset(CGPointMake(width * number, 0), animated: true)
+        }
+        
+        //Update selected UILabel.alpha
+        for view in self.scrollView.subviews{
+            if let currencyLabel = view as? UILabel {
+                if currencyLabel.text == self.currencyArray[self.selectedCurrencyTag] {
+                    
+                    currencyLabel.alpha = 1
+                }else{
+                    currencyLabel.alpha = self.unselectedLabelAlpha
+                }
+            }
+        }
+        
         
         //update new Amount by currency
         let formatter = NSNumberFormatter()
@@ -147,21 +224,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             self.displayAmountBySelectedCurrency(audAmount)
         }
         
-    }
-
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        //Update selected UILabel.alpha
-        for view in scrollView.subviews{
-            if let currencyLabel = view as? UILabel {
-                if currencyLabel.text == self.currencyArray[self.selectedCurrencyTag] {
-                    
-                    currencyLabel.alpha = 1
-                }else{
-                    currencyLabel.alpha = self.unselectedLabelAlpha
-                }
-            }
-        }
     }
     
     
@@ -224,8 +286,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         NSLog("connectionDidFinishLoading")
 
     }
-    
-    
+
     
     //MARK: - TextField Delegate
     
@@ -246,7 +307,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     
     func textFieldDidEndEditing(textField: UITextField) {
         
-        
         if textField.tag == audTextFieldTag && textField.text!.characters.count>0{
             
             let audAmount:Float = (self.AUDTextField.text! as NSString).floatValue
@@ -255,9 +315,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             formatter.currencyCode = "AUD"
             //display converted amount
             self.AUDTextField.text = "\(formatter.stringFromNumber(audAmount)!)"
-
-
-            
             
             self.displayAmountBySelectedCurrency(audAmount)
             
@@ -278,9 +335,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         formatter.currencyCode = currencyCode
         //display converted amount
         self.amountDisplayLabel.text = "\(formatter.stringFromNumber(displayAmount)!)"
-        
-  
-        
         
     }
 

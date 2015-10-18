@@ -27,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appBackgroundColor = appHelper.colorWithHexString("40C866")//40C866
         scrollViewBackgrundColor = appHelper.colorWithHexString("3FB760")
         
-        
-        
         return true
     }
 

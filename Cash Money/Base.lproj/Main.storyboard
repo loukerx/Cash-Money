@@ -71,7 +71,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvy-cc-Y6P" userLabel="Middle View">
                                 <rect key="frame" x="0.0" y="270" width="600" height="120"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-gF-dXM">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-gF-dXM">
                                         <rect key="frame" x="0.0" y="10" width="600" height="100"/>
                                         <animations/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -141,6 +141,7 @@
                         <outlet property="amountDisplayLabel" destination="SJl-VH-GyO" id="4OD-y4-Fiq"/>
                         <outlet property="dashBorderView" destination="55T-HH-03h" id="9vt-Gc-fKE"/>
                         <outlet property="mainView" destination="8bC-Xf-vdC" id="xbJ-jx-W3P"/>
+                        <outlet property="middleView" destination="qvy-cc-Y6P" id="Gxt-ve-zo6"/>
                         <outlet property="scrollView" destination="FlW-gF-dXM" id="jPM-fu-mU3"/>
                         <outlet property="upView" destination="tX7-0d-06C" id="TUv-o8-S6H"/>
                     </connections>
