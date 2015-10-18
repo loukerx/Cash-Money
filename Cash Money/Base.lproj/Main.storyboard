@@ -44,7 +44,7 @@
                                             <constraint firstAttribute="height" constant="3" id="M7G-dO-lLP"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="123" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="123" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$6,344.63" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-L4-GOW">
                                         <rect key="frame" x="50" y="81" width="500" height="54"/>
                                         <animations/>
                                         <accessibility key="accessibilityConfiguration" identifier="AUDTextField"/>
