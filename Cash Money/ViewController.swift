@@ -33,7 +33,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
     let unselectedLabelAlpha:CGFloat = 0.2
     
     var selectedCurrencyTag = 0
-    var currencyRateDictionary = [String: Float]()
+    var currencyRateDictionary = [String: Double]()
     
 
     
@@ -183,7 +183,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         formatter.currencyCode = "AUD"
         
         if let audAmountStr = formatter.numberFromString(self.AUDTextField.text!){
-            let audAmount:Float = ("\(audAmountStr)" as NSString).floatValue
+            let audAmount:Double = ("\(audAmountStr)" as NSString).doubleValue
             self.displayAmountBySelectedCurrency(audAmount)
         }
         
@@ -234,7 +234,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
            let jsonResults = try NSJSONSerialization.JSONObjectWithData(_data, options: [])
             // success ...
             print(jsonResults)
-            self.currencyRateDictionary = jsonResults["rates"] as! Dictionary<String,Float>
+            self.currencyRateDictionary = jsonResults["rates"] as! Dictionary<String,Double>
             
         } catch let error as NSError {
             // failure
@@ -263,6 +263,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
             formatter.currencyCode = "AUD"
             
             if let audAmountStr = formatter.numberFromString(self.AUDTextField.text!){
+                
                 self.AUDTextField.text = "\(audAmountStr)"
             }
         }
@@ -272,13 +273,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         
         if textField.tag == audTextFieldTag && textField.text!.characters.count>0{
             
-            let audAmount:Float = (self.AUDTextField.text! as NSString).floatValue
+            let audAmount:Double = (self.AUDTextField.text! as NSString).doubleValue
             let formatter = NSNumberFormatter()
             formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
             formatter.currencyCode = "AUD"
             //display converted amount
             self.AUDTextField.text = "\(formatter.stringFromNumber(audAmount)!)"
-            
+            print(audAmount)
             self.displayAmountBySelectedCurrency(audAmount)
             
         }else{
@@ -286,10 +287,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegat
         }
     }
     
-    private func displayAmountBySelectedCurrency(audAmount:Float){
+    private func displayAmountBySelectedCurrency(audAmount:Double){
         //calculate Amount
         let currencyCode = self.currencyArray[self.selectedCurrencyTag] //CAD, EUR, GBP, JPY, USD.
-        let rate:Float = self.currencyRateDictionary[currencyCode]!
+        let rate:Double = self.currencyRateDictionary[currencyCode]!
         let displayAmount = audAmount * rate
         
         
