@@ -16,8 +16,22 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Cvh-Sk-tjA">
+                                <rect key="frame" x="204" y="290" width="191" height="20"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="lwl-yA-QG3"/>
+                                    <constraint firstAttribute="width" constant="191" id="u9y-ob-cZR"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.2274509804" green="0.80784313730000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Cvh-Sk-tjA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="11x-j0-YEb"/>
+                            <constraint firstItem="Cvh-Sk-tjA" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ZbA-0d-J30"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -25,4 +39,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="191" height="20"/>
+    </resources>
 </document>
