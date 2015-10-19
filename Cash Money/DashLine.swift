@@ -19,7 +19,7 @@ class DashLine: UIView {
         CGContextSetLineWidth(context, 4.0)
         CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
         
-        let dashArray:[CGFloat] = [7,7]
+        let dashArray:[CGFloat] = [5,5]
         CGContextSetLineDash(context, 10, dashArray, 4)
         
         CGContextMoveToPoint(context, 0, 0)
