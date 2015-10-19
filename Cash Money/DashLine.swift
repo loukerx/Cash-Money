@@ -16,7 +16,7 @@ class DashLine: UIView {
     override func drawRect(rect: CGRect) {
         // Drawing code
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetLineWidth(context, 3.0)
+        CGContextSetLineWidth(context, 10.0)
         CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
         
         let dashArray:[CGFloat] = [5,5]
