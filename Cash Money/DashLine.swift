@@ -16,11 +16,11 @@ class DashLine: UIView {
     override func drawRect(rect: CGRect) {
         // Drawing code
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetLineWidth(context, 4.0)
+        CGContextSetLineWidth(context, 3.0)
         CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
         
         let dashArray:[CGFloat] = [5,5]
-        CGContextSetLineDash(context, 10, dashArray, 4)
+        CGContextSetLineDash(context, 10, dashArray, 2)
         
         CGContextMoveToPoint(context, 0, 0)
         CGContextAddLineToPoint(context, self.frame.size.width, 0)
